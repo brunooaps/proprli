@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])
-    ->name('login');
+    ->name('login')
+    ->middleware('guest');
 
 Route::post('/login', [LoginController::class, 'login']);
 
@@ -33,10 +34,6 @@ Route::get('taskEdit/{id}', [TaskController::class, 'edit'])
 
 Route::post('taskCreate', [TaskController::class, 'store'])
     ->name('tasks.store')
-    ->middleware(['auth', CheckRole::class . ':owner']);
-
-Route::post('taskDelete/{id}', [TaskController::class, 'destroy'])
-    ->name('tasks.destroy')
     ->middleware(['auth', CheckRole::class . ':owner']);
 
 Route::put('taskUpdate/{id}', [TaskController::class, 'update'])

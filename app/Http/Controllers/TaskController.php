@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use App\Http\Controllers\Controller;
-use App\Models\Building;
-use App\Models\Comment;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\Building;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class TaskController extends Controller
 {
@@ -32,10 +31,12 @@ class TaskController extends Controller
         $users = User::all();
         return view('tasks.create', compact('buildings', 'users'));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -67,6 +68,8 @@ class TaskController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param int $id The ID of the task to edit
+     * @return  \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -76,6 +79,13 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task', 'comments'));
     }
 
+    /**
+     * Update the specified task status in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id The ID of the task to update
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         // Validação dos dados (opcional, dependendo do seu caso)
@@ -92,17 +102,5 @@ class TaskController extends Controller
 
         // Redireciona de volta para a página de edição da task ou para onde for adequado
         return redirect()->route('tasks.edit', $id)->with('success', 'Status updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Task $task)
-    {
-        // Delete the task
-        $task->delete();
-
-        // Redirect to the task list with success message
-        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
 }

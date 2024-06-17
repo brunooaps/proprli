@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Criar usuários
         $owner = User::factory()->create([
             'name' => 'Owner',
             'email' => 'owner@email.com',
@@ -40,7 +39,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'user'
         ]);
 
-        // Criar prédios
         $building1 = Building::factory()->create([
             'name' => 'Building1',
             'address' => 'Address1'
@@ -51,7 +49,6 @@ class DatabaseSeeder extends Seeder
             'address' => 'Address2'
         ]);
 
-        // Criar tasks com comentários associados
         $task1 = Task::create([
             'title' => 'Task 1',
             'description' => 'Task 1 description',
