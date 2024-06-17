@@ -54,7 +54,7 @@ class TaskController extends Controller
         Task::create($validated);
 
         // Redirect to the task list with success message
-        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+        return redirect()->route('buildings.index')->with('success', 'Task created successfully.');
     }
 
     /**
