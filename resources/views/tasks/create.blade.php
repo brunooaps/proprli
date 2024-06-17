@@ -103,6 +103,7 @@
                     @endforeach
                 </select>
             </div>
+            <input type="hidden" name="created_by" value="{{ auth()->user()->id }}">
             <button type="submit" class="btn">Create Task</button>
         </form>
     </div>

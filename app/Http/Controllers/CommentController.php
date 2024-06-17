@@ -41,7 +41,7 @@ class CommentController extends Controller
             'content' => $request->comment,
         ]);
 
-        return redirect()->back()->with('success', 'Comment added successfully!');
+        return redirect()->route('tasks.edit', $request->task_id)->with('success', 'Comment added successfully.');
     }
 
     /**

@@ -43,11 +43,11 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'created_by' => 'required',
             'assigned_to_user' => 'required|exists:users,id',
             'assigned_to_building' => 'required|exists:buildings,id',
         ]);
 
-        $validated['created_by'] = Auth::user()->id;
         $validated['status'] = 'open';
 
         // Create the task
