@@ -42,19 +42,19 @@ class DatabaseSeeder extends Seeder
 
         // Criar prédios
         $building1 = Building::factory()->create([
-            'name' => 'Predio1',
-            'address' => 'Endereço1'
+            'name' => 'Building1',
+            'address' => 'Address1'
         ]);
 
         $building2 = Building::factory()->create([
-            'name' => 'Predio2',
-            'address' => 'Endereço2'
+            'name' => 'Building2',
+            'address' => 'Address2'
         ]);
 
         // Criar tasks com comentários associados
         $task1 = Task::create([
             'title' => 'Task 1',
-            'description' => 'Descrição da Task 1',
+            'description' => 'Task 1 description',
             'created_by' => $owner->id,
             'assigned_to_building' => $building1->id,
             'assigned_to_user' => $user1->id,
@@ -64,12 +64,12 @@ class DatabaseSeeder extends Seeder
         $comment1 = Comment::create([
             'task_id' => $task1->id,
             'created_by' => $owner->id,
-            'content' => 'Comentário da Task 1'
+            'content' => 'Task 1 comment'
         ]);
 
         $task2 = Task::create([
             'title' => 'Task 2',
-            'description' => 'Descrição da Task 2',
+            'description' => 'Task 2 description',
             'created_by' => $owner->id,
             'assigned_to_building' => $building2->id,
             'assigned_to_user' => $user2->id,
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
         $comment2 = Comment::create([
             'task_id' => $task2->id,
             'created_by' => $user1->id,
-            'content' => 'Comentário da Task 2'
+            'content' => 'Task 2 comment'
         ]);
     }
 }
