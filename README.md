@@ -52,7 +52,51 @@ With Docker installed and configured, start the necessary containers:
 docker compose up -d nginx php-fpm postgres workspace
 ```
 
-### 7. Install project dependencies
+### 7. Copy the postgres Ip address
+```bash
+docker inspect laradock-postgres-1
+```
+- Will return something similar to this, find the "IpAddress" and copy it:
+
+```json
+"Networks": {
+    "laradock_backend": {
+        "IPAMConfig": null,
+        "Links": null,
+        "Aliases": [
+            "laradock-postgres-1",
+            "postgres"
+        ],
+        "MacAddress": "02:42:c0:a8:e0:03",
+        "NetworkID": "eb7c5f658d2ba6bdcc07b188b0c59d451acd4065a645c4cce4a50ab1b0f82ce7",
+        "EndpointID": "6b037ca01a2e8731d37a3dd0315e14dcba5b7685fb58e6227c028732893c08e4",
+        "Gateway": "192.168.224.1",
+        "IPAddress": "192.168.224.3",  <-----------
+        "IPPrefixLen": 20,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "DriverOpts": null,
+        "DNSNames": [
+            "laradock-postgres-1",
+            "postgres",
+            "ab9c1ee9e2ac"
+        ]
+    }
+}
+```
+
+- Paste it inside your projects .env.example file
+```bash
+DB_CONNECTION=pgsql
+DB_HOST=192.168.224.3
+DB_PORT=5432
+DB_DATABASE=default
+DB_USERNAME=default
+DB_PASSWORD=secret
+```
+
+### 8. Install project dependencies
 Access the workspace container:
 ```bash
 docker compose exec --user=laradock workspace bash
@@ -63,25 +107,25 @@ Inside the container, install the Composer dependencies
 composer install
 ```
 
-### 8. Configure the Laravel environment file
+### 9. Configure the Laravel environment file
 Copy the .env.example file to .env:
 ```bash
 cp .env.example .env
 ```
 
-### 9. Generate the application key
+### 10. Generate the application key
 Run the command to generate the application key:
 ```bash
 php artisan key:generate
 ```
 
-### 10. Run migrations and seeders
+### 11. Run migrations and seeders
 To set up the database, run the migrations and seeders:
 ```bash
 php artisan migrate --seed
 ```
 
-### 11. Access the application
+### 12. Access the application
 Open your browser and access the application at http://localhost.
 
 ## Tests
