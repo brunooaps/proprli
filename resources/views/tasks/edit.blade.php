@@ -7,16 +7,19 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: #ECF0F1;
+            color: #34495E;
         }
 
         .task-info {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #BDC3C7;
+            border-radius: 10px;
+            background-color: #FFFFFF;
+            margin-top: 20px;
             text-align: center;
-            /* Centraliza o conteúdo */
         }
 
         .task-info h2 {
@@ -31,17 +34,17 @@
             max-width: 600px;
             margin: auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #BDC3C7;
             border-radius: 10px;
-            background-color: #f9f9f9;
+            background-color: #FFFFFF;
         }
 
         .comment {
             margin-bottom: 10px;
             padding: 10px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #E0E0E0;
             border-radius: 5px;
-            background-color: #fff;
+            background-color: #FFFFFF;
         }
 
         .comment .meta {
@@ -52,13 +55,11 @@
         .form-container {
             max-width: 600px;
             margin: auto;
-            /* Centraliza horizontalmente */
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #BDC3C7;
             border-radius: 10px;
-            background-color: #f9f9f9;
+            background-color: #FFFFFF;
             margin-top: 20px;
-            /* Espaçamento do topo */
         }
 
         .form-group {
@@ -68,46 +69,45 @@
         .form-group label {
             display: block;
             margin-bottom: 5px;
+            color: #2C3E50;
         }
 
-        .form-group select {
-            width: calc(100% - 16px);
-            /* Ajusta a largura do select */
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #fff;
-            /* Mantém o estilo do select */
-        }
-
+        .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
+            border: 1px solid #BDC3C7;
+            border-radius: 4px;
+            background-color: #ECF0F1;
+            color: #34495E;
+        }
+
+        .form-group textarea {
             resize: vertical;
-            /* Permite redimensionamento vertical */
         }
 
         .btn {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #3498DB;
+            color: #FFFFFF;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #2980B9;
         }
 
         .btn-secondary {
-            background-color: #6c757d;
+            background-color: #18BC9C;
+            color: #FFFFFF;
         }
 
         .btn-secondary:hover {
-            background-color: #5a6268;
+            background-color: #1ABC9C;
         }
     </style>
 </head>
@@ -164,8 +164,10 @@
         </form>
     </div>
 
-    <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Back to Tasks</a>
-    <a href="{{ route('buildings.index') }}" class="btn btn-secondary">Back to Buildings</a>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Back to Tasks</a>
+        <a href="{{ route('buildings.index') }}" class="btn btn-secondary">Back to Buildings</a>
+    </div>
 
 </body>
 </html>

@@ -7,6 +7,8 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: #ECF0F1;
+            color: #34495E;
         }
 
         table {
@@ -15,43 +17,76 @@
             margin-top: 20px;
         }
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
+        table, th, td {
+            border: 1px solid #BDC3C7;
         }
 
-        th,
-        td {
+        th, td {
             padding: 10px;
             text-align: left;
+        }
+
+        th {
+            background-color: #2C3E50;
+            color: #FFFFFF;
+        }
+
+        td {
+            background-color: #FFFFFF;
         }
 
         .btn {
             padding: 8px 12px;
             margin-right: 5px;
             text-decoration: none;
-            border: 1px solid #000;
+            border: 1px solid transparent;
             border-radius: 4px;
-            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color: #3498DB;
             color: #fff;
-            border-color: #007bff;
+            border-color: #3498DB;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980B9;
+            border-color: #2980B9;
+        }
+
+        .btn-secondary {
+            background-color: #18BC9C;
+            color: #fff;
+            border-color: #18BC9C;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1ABC9C;
+            border-color: #1ABC9C;
         }
 
         .btn-warning {
-            background-color: #ffc107;
+            background-color: #F39C12;
             color: #fff;
-            border-color: #ffc107;
+            border-color: #F39C12;
+        }
+
+        .btn-warning:hover {
+            background-color: #E67E22;
+            border-color: #E67E22;
         }
 
         .btn-danger {
-            background-color: #dc3545;
+            background-color: #E74C3C;
             color: #fff;
-            border-color: #dc3545;
+            border-color: #E74C3C;
+        }
+
+        .btn-danger:hover {
+            background-color: #C0392B;
+            border-color: #C0392B;
         }
 
         .filter-form {
@@ -63,16 +98,21 @@
         .filter-form input,
         .filter-form select {
             padding: 8px;
-            border: 1px solid #ccc;
+            border: 1px solid #BDC3C7;
             border-radius: 4px;
         }
 
         .filter-form button {
             padding: 8px 12px;
-            border: 1px solid #007bff;
+            border: 1px solid #3498DB;
             border-radius: 4px;
-            background-color: #007bff;
+            background-color: #3498DB;
             color: #fff;
+        }
+
+        .filter-form button:hover {
+            background-color: #2980B9;
+            border-color: #2980B9;
         }
 
         .task-row {
@@ -80,7 +120,7 @@
         }
 
         .task-row:hover {
-            background-color: #f0f8ff;
+            background-color: #BDC3C7;
         }
     </style>
 </head>
@@ -88,7 +128,6 @@
 <body>
     <h1>Tasks</h1>
 
-    <!-- Botões de ação -->
     <div class="form-container">
         @if(Auth::user()->isOwner())
             <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create New Task</a>
@@ -100,15 +139,11 @@
         </form>
     </div>
 
-    <!-- Formulário de Filtro -->
     <form action="{{ route('tasks.index') }}" method="GET" class="filter-form">
-        <!-- Filtro por building (oculto) -->
         <input type="hidden" name="building_id" value="{{ request('building_id') }}">
 
-        <!-- Filtro por data -->
         <input type="date" name="date" value="{{ request('date') }}">
         
-        <!-- Filtro por usuário -->
         <select name="assigned_user">
             <option value="">Select User</option>
             @foreach($users as $user)
@@ -118,7 +153,6 @@
             @endforeach
         </select>
         
-        <!-- Filtro por status -->
         <select name="status">
             <option value="">Select Status</option>
             <option value="open" {{ request('status') == 'open' ? 'selected' : '' }}>Open</option>
@@ -127,11 +161,9 @@
             <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
         </select>
         
-        <!-- Botão de filtro -->
         <button type="submit" class="btn">Filter</button>
     </form>
 
-    <!-- Tabela de Tasks -->
     <table>
         <thead>
             <tr>
@@ -168,7 +200,6 @@
     </table>
 
     <script>
-        // Adiciona evento de clique para redirecionar ao clicar na linha da tabela
         document.querySelectorAll('.task-row').forEach(row => {
             row.addEventListener('click', () => {
                 const url = row.dataset.url;
