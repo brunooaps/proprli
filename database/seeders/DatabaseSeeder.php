@@ -22,19 +22,22 @@ class DatabaseSeeder extends Seeder
         $owner = User::factory()->create([
             'name' => 'Owner',
             'email' => 'owner@email.com',
-            'password' => Hash::make('owner')
+            'password' => Hash::make('owner'),
+            'role' => 'owner'
         ]);
 
         $user1 = User::factory()->create([
             'name' => 'User1',
             'email' => 'user1@email.com',
-            'password' => Hash::make('user1')
+            'password' => Hash::make('user1'),
+            'role' => 'user'
         ]);
 
         $user2 = User::factory()->create([
             'name' => 'User2',
             'email' => 'user2@email.com',
-            'password' => Hash::make('user2')
+            'password' => Hash::make('user2'),
+            'role' => 'user'
         ]);
 
         // Criar prédios
@@ -55,7 +58,7 @@ class DatabaseSeeder extends Seeder
             'created_by' => $owner->id,
             'assigned_to_building' => $building1->id,
             'assigned_to_user' => $user1->id,
-            'status' => 'Open'
+            'status' => 'open'
         ]);
 
         $comment1 = Comment::create([
@@ -70,7 +73,7 @@ class DatabaseSeeder extends Seeder
             'created_by' => $owner->id,
             'assigned_to_building' => $building2->id,
             'assigned_to_user' => $user2->id,
-            'status' => 'Rejected'
+            'status' => 'rejected'
         ]);
 
         $comment2 = Comment::create([

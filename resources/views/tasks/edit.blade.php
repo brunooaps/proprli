@@ -133,8 +133,8 @@
                     </select>
                 </form>
             </p>
-            <p><strong>Created At:</strong> {{ $task->created_at }}</p>
-            <p><strong>Updated At:</strong> {{ $task->updated_at }}</p>
+            <p><strong>Created At:</strong> {{ \Carbon\Carbon::parse($task->created_at)->format('d/m/Y') }}</p>
+            <p><strong>Updated At:</strong> {{ \Carbon\Carbon::parse($task->updated_at)->format('d/m/Y') }}</p>
         </div>
     </div>
 
@@ -145,7 +145,7 @@
                 <p>{{ $comment->content }}</p>
                 <div class="meta">
                     <p>Created By: {{ $comment->user->name }}</p>
-                    <p>Created At: {{ $comment->created_at }}</p>
+                    <p>Created At: {{ \Carbon\Carbon::parse($comment->created_at)->format('d/m/Y') }}</p>
                 </div>
             </div>
         @endforeach

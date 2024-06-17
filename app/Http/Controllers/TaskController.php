@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Http\Controllers\Controller;
+use App\Models\Building;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -26,8 +28,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        $buildings = Building::all();
+        $users = User::all();
+        return view('tasks.create', compact('buildings', 'users'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -38,12 +43,12 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'comment' => 'nullable|string',
-            'created_by' => 'required|integer',
-            'assigned_to_user' => 'required|integer',
-            'assigned_to_building' => 'required|integer',
-            'status' => 'required|string|max:50',
+            'assigned_to_user' => 'required|exists:users,id',
+            'assigned_to_building' => 'required|exists:buildings,id',
         ]);
+
+        $validated['created_by'] = Auth::user()->id;
+        $validated['status'] = 'open';
 
         // Create the task
         Task::create($validated);

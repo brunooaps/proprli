@@ -85,6 +85,7 @@
     <h1>Tasks</h1>
 
     <!-- Botão para página de criação -->
+    @if(Auth::user()->isOwner())
     <div class="form-container">
         <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create New Task</a>
         <form action="{{ route('logout') }}" method="POST" style="display: inline-block;">
@@ -92,6 +93,7 @@
             <button type="submit" class="btn btn-danger">Logout</button>
         </form>
     </div>
+    @endif
 
     <!-- Formulário de Filtro -->
     <form action="{{ route('tasks.index') }}" method="GET" class="filter-form">

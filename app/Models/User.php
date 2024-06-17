@@ -32,6 +32,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function isOwner()
+    {
+        return $this->role === 'owner';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
+
     /**
      * Get the attributes that should be cast.
      *
