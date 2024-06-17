@@ -74,17 +74,26 @@
             background-color: #007bff;
             color: #fff;
         }
+
+        .task-row {
+            cursor: pointer;
+        }
+
+        .task-row:hover {
+            background-color: #f0f8ff;
+        }
     </style>
 </head>
 
 <body>
     <h1>Tasks</h1>
 
-    <!-- Botão para página de criação -->
+    <!-- Botões de ação -->
     <div class="form-container">
         @if(Auth::user()->isOwner())
-        <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create New Task</a>
+            <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create New Task</a>
         @endif
+        <a href="{{ route('buildings.index') }}" class="btn btn-secondary">Back to Buildings</a>
         <form action="{{ route('logout') }}" method="POST" style="display: inline-block;">
             @csrf
             <button type="submit" class="btn btn-danger">Logout</button>

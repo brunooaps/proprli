@@ -165,5 +165,7 @@
     </div>
 
     <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Back to Tasks</a>
+    <a href="{{ route('buildings.index') }}" class="btn btn-secondary">Back to Buildings</a>
+
 </body>
 </html>
