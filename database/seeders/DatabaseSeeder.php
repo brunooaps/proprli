@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
             'created_by' => $owner->id,
             'assigned_to_building' => $building1->id,
             'assigned_to_user' => $user1->id,
-            'status' => 'pending'
+            'status' => 'Open'
         ]);
 
         $comment1 = Comment::create([
@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             'created_by' => $owner->id,
             'assigned_to_building' => $building2->id,
             'assigned_to_user' => $user2->id,
-            'status' => 'pending'
+            'status' => 'Rejected'
         ]);
 
         $comment2 = Comment::create([

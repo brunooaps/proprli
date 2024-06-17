@@ -29,21 +29,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // Validação dos dados do formulário
         $request->validate([
             'task_id' => 'required|exists:tasks,id',
-            'user_id' => 'required|exists:users,id',
+            'created_by' => 'required|exists:users,id',
             'comment' => 'required|string',
         ]);
 
-        // Criação do comentário
         Comment::create([
             'task_id' => $request->task_id,
-            'user_id' => $request->user_id,
+            'created_by' => $request->created_by,
             'content' => $request->comment,
         ]);
 
-        // Redirecionamento de volta à página de edição da task
         return redirect()->back()->with('success', 'Comment added successfully!');
     }
 

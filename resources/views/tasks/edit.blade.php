@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Edit Task</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -71,6 +70,17 @@
             margin-bottom: 5px;
         }
 
+        .form-group select {
+            width: calc(100% - 16px);
+            /* Ajusta a largura do select */
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            /* Mantém o estilo do select */
+        }
+
         .form-group textarea {
             width: 100%;
             padding: 8px;
@@ -101,7 +111,6 @@
         }
     </style>
 </head>
-
 <body>
     <h1>Edit Task</h1>
 
@@ -112,7 +121,18 @@
             <p><strong>Created By:</strong> {{ $task->creator->name }}</p>
             <p><strong>Assigned to Building:</strong> {{ $task->assignedBuilding->name }}</p>
             <p><strong>Assigned to User:</strong> {{ $task->assignedUser->name }}</p>
-            <p><strong>Status:</strong> {{ $task->status }}</p>
+            <p><strong>Status:</strong>
+                <form action="{{ route('tasks.update', $task->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <select name="status" class="status-select" onchange="this.form.submit()">
+                        <option value="open" {{ $task->status == 'open' ? 'selected' : '' }}>Open</option>
+                        <option value="in_progress" {{ $task->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                        <option value="completed" {{ $task->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                        <option value="rejected" {{ $task->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    </select>
+                </form>
+            </p>
             <p><strong>Created At:</strong> {{ $task->created_at }}</p>
             <p><strong>Updated At:</strong> {{ $task->updated_at }}</p>
         </div>
@@ -135,18 +155,15 @@
         <form action="{{ route('comments.store') }}" method="POST">
             @csrf
             <input type="hidden" name="task_id" value="{{ $task->id }}">
-            Adicionar mais tarde, pois ainda não foi criado a lógica de login
-            {{-- <input type="hidden" name="user_id" value="{{ auth()->user()->id }}"> --}}
+            <input type="hidden" name="created_by" value="{{ auth()->user()->id }}">
             <div class="form-group">
                 <label for="comment">Add Comment:</label>
                 <textarea id="comment" name="comment" required></textarea>
             </div>
             <button type="submit" class="btn">Add Comment</button>
         </form>
-
     </div>
 
     <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Back to Tasks</a>
 </body>
-
 </html>

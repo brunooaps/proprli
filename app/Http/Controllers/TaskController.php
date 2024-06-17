@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -15,8 +16,9 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::with(['creator', 'assignedUser', 'assignedBuilding'])->get();
+        $users = User::all();
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'users'));
     }
 
     /**
@@ -67,6 +69,24 @@ class TaskController extends Controller
         $comments = Comment::where('task_id', '=', $id)->with(['user'])->get();
 
         return view('tasks.edit', compact('task', 'comments'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validação dos dados (opcional, dependendo do seu caso)
+        $request->validate([
+            'status' => 'required|in:open,in_progress,completed,rejected',
+        ]);
+
+        // Busca a task pelo ID
+        $task = Task::findOrFail($id);
+
+        // Atualiza o status da task
+        $task->status = $request->status;
+        $task->save();
+
+        // Redireciona de volta para a página de edição da task ou para onde for adequado
+        return redirect()->route('tasks.edit', $id)->with('success', 'Status updated successfully.');
     }
 
     /**
